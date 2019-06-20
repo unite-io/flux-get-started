@@ -116,3 +116,6 @@ spec:
           requests:
             cpu: 10m
             memory: 64Mi
+        volumeMounts:
+        - name: shared-data
+          mountPath: /home/app/.aws/credentials
