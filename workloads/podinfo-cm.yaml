@@ -1,0 +1,44 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: example-vault-agent-config
+  namespace: demo
+data:
+  vault-agent-config.hcl: |-
+  exit_after_auth = true
+  pid_file = "/home/vault/pidfile"
+
+  auto_auth {
+      method "kubernetes" {
+          mount_path = "auth/kubernetes"
+          config = {
+              role = "example"
+          }
+      }
+
+      sink "file" {
+          config = {
+              path = "/home/vault/.vault-token"
+          }
+      }
+  }
+
+  consul-template-config.hcl: |-
+  vault {
+    renew_token = false
+    vault_agent_token_file = "/home/vault/.vault-token"
+    retry {
+      backoff = "1s"
+    }
+  }
+
+  template {
+    destination = "/etc/secrets/aws-creds"
+    contents = <<EOH
+{{- with secret "aws/creds/ad-account-table-access-role-2" }}
+[default]
+aws_access_key_id = {{ .Data.access_key }}
+aws_secret_access_key = {{ .Data.security_token }}
+{{ end }}
+    EOH
+  }
