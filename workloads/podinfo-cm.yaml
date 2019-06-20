@@ -27,6 +27,7 @@ data:
     vault {
       renew_token = false
       vault_agent_token_file = "/home/vault/.vault-token"
+      tls_skip_verify = "true"
       retry {
         backoff = "1s"
       }
