@@ -26,6 +26,7 @@ spec:
         app: podinfo
     spec:
       serviceAccountName: vault-auth
+      shareProcessNamespace: true
       volumes:
       - name: vault-token
         emptyDir:
