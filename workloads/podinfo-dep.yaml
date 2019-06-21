@@ -40,6 +40,8 @@ spec:
             path: consul-template-config.hcl
       - name: shared-data
         emptyDir: {}
+      - name: shared-config
+        emptyDir: {}
 
       initContainers:
       - name: init
@@ -70,6 +72,8 @@ spec:
           mountPath: /etc/consul-template
         - name: shared-data
           mountPath: /etc/secrets
+        - name: shared-config
+          mountPath: /etc/configs
         env:
         - name: HOME
           value: /home/vault
@@ -119,3 +123,5 @@ spec:
         volumeMounts:
         - name: shared-data
           mountPath: /home/app/.aws/credentials
+        - name: shared-config
+          mountPath: /home/app/config

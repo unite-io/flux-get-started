@@ -49,3 +49,10 @@ data:
         {{ end }}
       EOH
     }
+
+    template {
+      destination = "/etc/configs/podinfo.yaml"
+      contents = <<EOH
+        LOG_LEVEL = {{ key "podinfo/config/log-level" }}
+      EOH
+    }
