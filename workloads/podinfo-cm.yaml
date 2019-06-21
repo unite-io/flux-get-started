@@ -58,6 +58,7 @@ data:
 
     template {
       destination = "/etc/configs/podinfo.yaml"
+      command = "/bin/sh -c \"kill -HUP $(pidof podinfo)\""
       contents = <<EOH
         LOG_LEVEL = {{ key "podinfo/config/log-level" }}
       EOH
