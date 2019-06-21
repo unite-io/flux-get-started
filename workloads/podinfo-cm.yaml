@@ -38,14 +38,20 @@ data:
         verify = false
       }
     }
+    consul {
+      ssl {
+        verify = false
+      }
+    }
 
     template {
-      destination = "/etc/secrets/aws-creds"
+      destination = "/etc/secrets/credentials"
       contents = <<EOH
         {{- with secret "aws/creds/ad-account-table-access-role-2" }}
         [default]
         aws_access_key_id = {{ .Data.access_key }}
         aws_secret_access_key = {{ .Data.security_token }}
+        aws_session_token = {{ .Data.session_token }}
         {{ end }}
       EOH
     }
