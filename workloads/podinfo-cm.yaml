@@ -51,14 +51,12 @@ data:
         [default]
         aws_access_key_id = {{ .Data.access_key }}
         aws_secret_access_key = {{ .Data.security_token }}
-        aws_session_token = {{ .Data.session_token }}
+        aws_session_token = {{ .Data.security_token }}
         {{ end }}
       EOH
     }
 
     template {
       destination = "/etc/configs/podinfo.yaml"
-      contents = <<EOH
-        LOG_LEVEL = {{ key "podinfo/config/log-level" }}
-      EOH
+      contents = "LOG_LEVEL = {{ key "podinfo/config/log-level" }}"
     }
