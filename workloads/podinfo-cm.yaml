@@ -29,7 +29,6 @@ data:
 
   consul-template-config.hcl: |
     vault {
-      renew_token = false
       vault_agent_token_file = "/home/vault/.vault-token"
       retry {
         backoff = "1s"
@@ -46,6 +45,7 @@ data:
 
     template {
       destination = "/etc/secrets/credentials"
+      command = "/bin/sh -c \"kill -HUP $(pidof podinfo)\""
       contents = <<EOH
         {{- with secret "aws/creds/ad-account-table-access-role-2" }}
         [default]
