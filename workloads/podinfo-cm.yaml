@@ -58,5 +58,5 @@ data:
 
     template {
       destination = "/etc/configs/podinfo.yaml"
-      contents = "LOG_LEVEL = {{ key "podinfo/config/log-level" }}"
+      contents = 'LOG_LEVEL = {{ key "podinfo/config/log-level" }}'
     }
